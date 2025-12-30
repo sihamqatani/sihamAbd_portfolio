@@ -85,7 +85,10 @@ class ContactSection extends StatelessWidget {
               ),
             ],
           ),
-        ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2),
+        )
+            .animate()
+            .fadeIn(duration: 800.ms, curve: Curves.easeOutQuart)
+            .slideY(begin: 0.1, curve: Curves.easeOutQuart),
       ],
     );
   }

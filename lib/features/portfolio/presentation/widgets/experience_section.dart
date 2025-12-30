@@ -22,7 +22,10 @@ class ExperienceSection extends StatelessWidget {
         Text(
           l10n.experience,
           style: Theme.of(context).textTheme.displayMedium,
-        ).animate().fadeIn().slideX(),
+        )
+            .animate()
+            .fadeIn(duration: 800.ms, curve: Curves.easeOutQuart)
+            .slideX(begin: -0.1, curve: Curves.easeOutQuart),
         const SizedBox(height: 30),
         ListView.builder(
           shrinkWrap: true,
@@ -70,58 +73,75 @@ class ExperienceSection extends StatelessWidget {
                     // Content
                     Expanded(
                       child: GlassContainer(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    exp.position,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      exp.position,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Text(
+                                    exp.period,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .titleLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                        .labelMedium
+                                        ?.copyWith(
+                                          color: isDark
+                                              ? Colors.white70
+                                              : Colors.black54,
+                                        ),
                                   ),
-                                ),
-                                Text(
-                                  exp.period,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(
-                                        color: isDark
-                                            ? Colors.white70
-                                            : Colors.black54,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              exp.company,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    color: PurpleTheme.primaryPurple,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              exp.description,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
+                                ],
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                exp.company,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      color: PurpleTheme.primaryPurple,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                exp.description,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ).animate().fadeIn(delay: (200 * index).ms).slideX(begin: 0.1);
+            )
+                .animate()
+                .fadeIn(
+                  delay: (index * 150).ms,
+                  duration: 800.ms,
+                  curve: Curves.easeOutQuart,
+                )
+                .slideX(
+                  begin: 0.05,
+                  delay: (index * 150).ms,
+                  duration: 800.ms,
+                  curve: Curves.easeOutQuart,
+                );
           },
         ),
       ],

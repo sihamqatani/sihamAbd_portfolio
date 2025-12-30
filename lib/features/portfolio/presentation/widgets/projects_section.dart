@@ -58,17 +58,24 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           height: 480,
           child: PageView.builder(
             controller: _pageController,
+            physics: const BouncingScrollPhysics(),
             itemCount: widget.projects.length,
             itemBuilder: (context, index) {
               final project = widget.projects[index];
 
-              // 3D Animation Logic
+              // 3D Animation Logic with Easing
               final double relativePosition = index - _currentPage;
-              final double scale =
-                  (1 - (relativePosition.abs() * 0.15)).clamp(0.8, 1.0);
-              final double opacity =
-                  (1 - (relativePosition.abs() * 0.4)).clamp(0.5, 1.0);
-              final double rotation = (relativePosition * 0.3).clamp(-0.4, 0.4);
+              final double absPosition = relativePosition.abs();
+
+              // Use an easing curve for the factor to make it feel smoother
+              final double factor =
+                  (1.0 - (absPosition.clamp(0.0, 1.0))).toDouble();
+              final double easedFactor = Curves.easeOutCubic.transform(factor);
+
+              final double scale = 0.82 + (easedFactor * 0.18);
+              final double opacity = 0.6 + (easedFactor * 0.4);
+              final double rotation =
+                  (relativePosition.clamp(-1.0, 1.0) * 0.4).toDouble();
 
               return Transform(
                 transform: Matrix4.identity()
@@ -182,7 +189,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           children: List.generate(
             widget.projects.length,
             (index) {
-              double activeFactor =
+              final double activeFactor =
                   (1 - (index - _currentPage).abs()).clamp(0.0, 1.0);
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),

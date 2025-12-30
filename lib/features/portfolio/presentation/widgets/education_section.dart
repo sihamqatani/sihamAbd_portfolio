@@ -21,7 +21,10 @@ class EducationSection extends StatelessWidget {
         Text(
           l10n.education,
           style: Theme.of(context).textTheme.displayMedium,
-        ).animate().fadeIn().slideX(),
+        )
+            .animate()
+            .fadeIn(duration: 800.ms, curve: Curves.easeOutQuart)
+            .slideX(begin: -0.1, curve: Curves.easeOutQuart),
         const SizedBox(height: 30),
         LayoutBuilder(
           builder: (context, constraints) {
@@ -33,45 +36,56 @@ class EducationSection extends StatelessWidget {
                 crossAxisCount: crossAxisCount,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
-                mainAxisExtent: 180,
+                mainAxisExtent: 200,
               ),
               itemCount: educations.length,
               itemBuilder: (context, index) {
                 final edu = educations[index];
                 return GlassContainer(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.school,
-                        color: PurpleTheme.primaryPurple,
-                        size: 40,
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        edu.degree,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        edu.school,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: PurpleTheme.primaryPurple,
-                            ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        edu.period,
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.school,
+                          color: PurpleTheme.primaryPurple,
+                          size: 40,
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          edu.degree,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          edu.school,
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: PurpleTheme.primaryPurple,
+                                  ),
+                        ),
+                      ],
+                    ),
                   ),
-                ).animate().fadeIn(delay: (200 * index).ms).scale();
+                )
+                    .animate()
+                    .fadeIn(
+                      delay: (index * 150).ms,
+                      duration: 800.ms,
+                      curve: Curves.easeOutQuart,
+                    )
+                    .slideY(
+                      begin: 0.1,
+                      delay: (index * 150).ms,
+                      duration: 800.ms,
+                      curve: Curves.easeOutQuart,
+                    );
               },
             );
           },

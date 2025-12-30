@@ -109,8 +109,15 @@ class SkillsSection extends StatelessWidget {
                   ),
                 )
                     .animate()
-                    .fadeIn(delay: (index * 50).ms)
-                    .slideY(begin: 0.1, delay: (index * 50).ms);
+                    .fadeIn(
+                        delay: (index * 80).ms,
+                        duration: 800.ms,
+                        curve: Curves.easeOutQuart)
+                    .slideY(
+                        begin: 0.1,
+                        delay: (index * 80).ms,
+                        duration: 800.ms,
+                        curve: Curves.easeOutQuart);
               },
             );
           },

@@ -21,17 +21,26 @@ class HeroSection extends StatelessWidget {
                 color: PurpleTheme.lightPurple,
                 fontWeight: FontWeight.w300,
               ),
-        ).animate().fadeIn(duration: 600.ms).slideX(begin: -0.2),
+        )
+            .animate()
+            .fadeIn(duration: 800.ms, curve: Curves.easeOutQuart)
+            .slideX(begin: -0.1, curve: Curves.easeOutQuart),
         Text(
           'Siham Abdullah',
           style: Theme.of(context).textTheme.displayLarge,
-        ).animate().fadeIn(delay: 200.ms).slideX(begin: -0.2),
+        )
+            .animate()
+            .fadeIn(delay: 200.ms, duration: 800.ms, curve: Curves.easeOutQuart)
+            .slideX(begin: -0.1, curve: Curves.easeOutQuart),
         Text(
           l10n.introRole, // "Flutter Developer"
           style: Theme.of(
             context,
           ).textTheme.headlineMedium,
-        ).animate().fadeIn(delay: 400.ms).slideX(begin: -0.2),
+        )
+            .animate()
+            .fadeIn(delay: 400.ms, duration: 800.ms, curve: Curves.easeOutQuart)
+            .slideX(begin: -0.1, curve: Curves.easeOutQuart),
         const SizedBox(height: 30),
         GlassContainer(
           width: double.infinity,
@@ -42,7 +51,11 @@ class HeroSection extends StatelessWidget {
               context,
             ).textTheme.bodyLarge?.copyWith(height: 1.5, fontSize: 18),
           ),
-        ).animate().fadeIn(delay: 600.ms).scale(),
+        )
+            .animate()
+            .fadeIn(
+                delay: 600.ms, duration: 1000.ms, curve: Curves.easeOutQuart)
+            .scale(begin: const Offset(0.95, 0.95), curve: Curves.easeOutQuart),
       ],
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/bloc/language_cubit.dart';
 import '../../../../core/bloc/theme_cubit.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../bloc/portfolio_cubit.dart';
@@ -95,12 +94,12 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.language, color: primaryColor),
-              onPressed: () {
-                context.read<LanguageCubit>().toggleLanguage();
-              },
-            ),
+            // IconButton(
+            //   icon: Icon(Icons.language, color: primaryColor),
+            //   onPressed: () {
+            //     context.read<LanguageCubit>().toggleLanguage();
+            //   },
+            // ),
           ],
         ),
       ],
