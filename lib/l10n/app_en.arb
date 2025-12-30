@@ -1,0 +1,17 @@
+{
+  "title": "Portfolio",
+  "@title": {
+    "description": "The title of the application"
+  },
+  "home": "Home",
+  "skills": "Skills",
+  "projects": "Projects",
+  "contact": "Contact",
+  "viewDetails": "View Details",
+  "introGreeting": "Hello, I'm",
+  "introRole": "Flutter Developer",
+  "introDescription": "Building beautiful, responsive, and high-performance applications.",
+  "experience": "Experience",
+  "education": "Education",
+  "copyright": "© 2026 All Rights Reserved."
+}
