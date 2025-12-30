@@ -30,7 +30,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get introGreeting => 'مرحباً، أنا';
 
   @override
-  String get introRole => 'مطورة تطبيقات فلاتر وهواتف ذكية';
+  String get introRole => 'مطورة تطبيقات هواتف (مطور فلاتر)';
 
   @override
   String get introDescription =>

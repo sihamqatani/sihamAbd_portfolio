@@ -143,7 +143,7 @@ abstract class AppLocalizations {
   /// No description provided for @introRole.
   ///
   /// In en, this message translates to:
-  /// **'Flutter & Mobile Application Developer'**
+  /// **'Mobile application developer(Flutter developer)'**
   String get introRole;
 
   /// No description provided for @introDescription.
