@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get introGreeting => 'Hello, I\'m';
 
   @override
-  String get introRole => 'Flutter Developer';
+  String get introRole => 'Flutter & Mobile Application Developer';
 
   @override
   String get introDescription =>

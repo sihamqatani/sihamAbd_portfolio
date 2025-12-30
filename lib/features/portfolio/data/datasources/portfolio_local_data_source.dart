@@ -14,7 +14,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
   @override
   Future<List<Project>> getProjects() async {
     // Simulate network delay
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 2500));
     return const [
       Project(
         id: 'p1',
@@ -95,7 +95,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
 
   @override
   Future<List<Skill>> getSkills() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 2500));
     return const [
       Skill(
         id: '1',
@@ -173,7 +173,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
 
   @override
   Future<List<Experience>> getExperiences() async {
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 2500));
     return const [
       Experience(
         id: '1',
@@ -215,7 +215,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
 
   @override
   Future<List<Education>> getEducations() async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 2500));
     return const [
       Education(
         id: '1',

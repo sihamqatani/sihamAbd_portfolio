@@ -37,7 +37,7 @@ class HeroSection extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(24),
           child: Text(
-            'Passionate Flutter developer with solid experience in crafting scalable, cross-platform mobile applications. Committed to clean architecture, efficient UI implementation, and seamless backend integration using modern Flutter tools and principles.',
+            'Specialized in building high-performance, scalable mobile applications with Flutter. Committed to Clean Architecture, SOLID principles, and crafting pixel-perfect UI/UX experiences that drive user engagement.',
             style: Theme.of(
               context,
             ).textTheme.bodyLarge?.copyWith(height: 1.5, fontSize: 18),
