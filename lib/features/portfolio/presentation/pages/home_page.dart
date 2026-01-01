@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:purple_portfolio/core/theme/purple_theme.dart';
 
 import '../../../../core/bloc/theme_cubit.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -24,52 +26,93 @@ class HomePage extends StatelessWidget {
           // Premium Background Base
           Positioned.fill(
             child: Container(
-              color: Theme.of(context).scaffoldBackgroundColor,
-            ),
-          ),
-          // Subtle Glows for Dark Mode
-          if (Theme.of(context).brightness == Brightness.dark)
-            Positioned.fill(
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: -100,
-                    right: -100,
-                    child: Container(
-                      width: 400,
-                      height: 400,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: PurpleTheme.primaryPurple.withOpacity(0.08),
+              decoration: BoxDecoration(
+                gradient: Theme.of(context).brightness == Brightness.dark
+                    ? const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF0A0710),
+                          Color(0xFF130B1D),
+                          Color(0xFF07050A),
+                        ],
+                        stops: [0.0, 0.5, 1.0],
+                      )
+                    : const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFFFBEDEF),
+                          Color(0xFFFFF5F7),
+                          Color(0xFFFBEDEF),
+                        ],
+                        stops: [0.0, 0.5, 1.0],
                       ),
-                    ),
-                  ).animate().fadeIn(duration: 2.seconds),
-                  Positioned(
-                    bottom: 100,
-                    left: -150,
-                    child: Container(
-                      width: 500,
-                      height: 500,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: PurpleTheme.lightPurple.withOpacity(0.05),
-                      ),
-                    ),
-                  ).animate().fadeIn(duration: 3.seconds),
-                  // Centered subtle glow
-                  Center(
-                    child: Container(
-                      width: 600,
-                      height: 600,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: PurpleTheme.primaryPurple.withOpacity(0.03),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
+          ),
+          // Vibrant Animated Glows
+          Positioned.fill(
+            child: Stack(
+              children: [
+                Positioned(
+                  top: -150,
+                  right: -100,
+                  child: Container(
+                    width: 500,
+                    height: 500,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? PurpleTheme.primaryPurple.withOpacity(0.12)
+                          : PurpleTheme.primaryPurple.withOpacity(0.06),
+                    ),
+                  ).animate(onPlay: (c) => c.repeat(reverse: true)).move(
+                      begin: const Offset(0, 0),
+                      end: const Offset(-80, 80),
+                      duration: 10.seconds,
+                      curve: Curves.easeInOut),
+                ),
+                Positioned(
+                  bottom: -150,
+                  left: -100,
+                  child: Container(
+                    width: 600,
+                    height: 600,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? PurpleTheme.lightPurple.withOpacity(0.08)
+                          : PurpleTheme.lightPurple.withOpacity(0.12),
+                    ),
+                  ).animate(onPlay: (c) => c.repeat(reverse: true)).move(
+                      begin: const Offset(0, 0),
+                      end: const Offset(100, -100),
+                      duration: 15.seconds,
+                      curve: Curves.easeInOut),
+                ),
+                // Middle floating orb
+                Positioned(
+                  top: 200,
+                  left: 200,
+                  child: Container(
+                    width: 400,
+                    height: 400,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? PurpleTheme.primaryPurple.withOpacity(0.05)
+                          : PurpleTheme.primaryPurple.withOpacity(0.03),
+                    ),
+                  ).animate(onPlay: (c) => c.repeat(reverse: true)).scale(
+                      begin: const Offset(1, 1),
+                      end: const Offset(1.5, 1.5),
+                      duration: 12.seconds,
+                      curve: Curves.easeInOut),
+                ),
+              ],
+            ),
+          ),
           BlocBuilder<PortfolioCubit, PortfolioState>(
             builder: (context, state) {
               if (state.status == PortfolioStatus.loading) {
