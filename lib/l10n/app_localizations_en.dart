@@ -43,5 +43,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get education => 'Education';
 
   @override
+  String get downloadCV => 'Download CV';
+
+  @override
   String get copyright => '© 2026 All Rights Reserved.';
 }

@@ -56,6 +56,65 @@ class HeroSection extends StatelessWidget {
             .fadeIn(
                 delay: 600.ms, duration: 1000.ms, curve: Curves.easeOutQuart)
             .scale(begin: const Offset(0.95, 0.95), curve: Curves.easeOutQuart),
+        const SizedBox(height: 40),
+        // Download CV Button
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              // Placeholder for CV download link
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              decoration: BoxDecoration(
+                gradient: PurpleTheme.mainGradient,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: PurpleTheme.primaryPurple.withOpacity(0.3),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.file_download_outlined, color: Colors.white),
+                  const SizedBox(width: 12),
+                  Text(
+                    l10n.downloadCV,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+              .animate(onPlay: (controller) => controller.repeat(reverse: true))
+              .scale(
+                duration: 2.seconds,
+                begin: const Offset(1, 1),
+                end: const Offset(1.03, 1.03),
+                curve: Curves.easeInOut,
+              )
+              .animate()
+              .fadeIn(delay: 800.ms)
+              .scale(
+                begin: const Offset(0.8, 0.8),
+                curve: Curves.elasticOut,
+                duration: 1.seconds,
+              )
+              .shimmer(
+                delay: 3.seconds,
+                duration: 2.seconds,
+                color: Colors.white.withOpacity(0.3),
+              ),
+        ),
       ],
     );
   }

@@ -30,7 +30,17 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
         description:
             'FinTech (Buy Now Pay Later). Contributed to the development by modifying existing codebase and implementing new features, while improving performance.',
         tags: ['Flutter', 'FinTech', 'BNPL'],
-        link: '',
+        imageUrl: 'assets/images/sympl_logo.png',
+        screenshots: [
+          'https://play-lh.googleusercontent.com/Gu-nIqMw9cflet9Ja1j0TWeTfej71YWUVhJRGPnXNgNKsMp2Ydu1WClHxRl2BrazvPU=w2048-h2048-rw',
+          'https://play-lh.googleusercontent.com/3bHdiSWM4k7mteraDUHbqtrIfHa8slVY6eAPEH3vC-tcWQLCGYdiLP7qL3l3hs1oJg=w2048-h2048-rw',
+          'https://play-lh.googleusercontent.com/KnrkxsuWwdDWYASPK5Q5ZEBsCqsDHQ-oCHbV69XY8R3LTCPP8Nq3dVW5d0rCgXrXdb0=w2048-h2048-rw',
+          'https://play-lh.googleusercontent.com/vE3bcv9--KgaESVzMJ1PGPJFkgjdW2eQpHyu-YKb8K7hQinGq2g2QVp3Fnk3mkS3-VxR=w2048-h2048-rw',
+        ],
+        appStoreLink:
+            'https://apps.apple.com/us/app/sympl-save-money-pay-later/id1589082991',
+        playStoreLink:
+            'https://play.google.com/store/apps/details?id=com.sympl',
       ),
       Project(
         id: 'p3',

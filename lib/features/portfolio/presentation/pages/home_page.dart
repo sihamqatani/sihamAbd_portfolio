@@ -19,46 +19,99 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: BlocBuilder<PortfolioCubit, PortfolioState>(
-        builder: (context, state) {
-          if (state.status == PortfolioStatus.loading) {
-            return const PurpleLoadingIndicator();
-          } else if (state.status == PortfolioStatus.failure) {
-            return Center(child: Text('Error: ${state.errorMessage}'));
-          }
-
-          // Using a ListView allows for lazy building, which triggers
-          // admission animations (FlyIn/FadeIn) correctly as you scroll.
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1000),
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      body: Stack(
+        children: [
+          // Premium Background Base
+          Positioned.fill(
+            child: Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
+            ),
+          ),
+          // Subtle Glows for Dark Mode
+          if (Theme.of(context).brightness == Brightness.dark)
+            Positioned.fill(
+              child: Stack(
                 children: [
-                  const SizedBox(height: 50),
-                  // NavBar
-                  _buildNavBar(context),
-                  const SizedBox(height: 50),
-
-                  // Sections
-                  const HeroSection(),
-                  const SizedBox(height: 100),
-                  SkillsSection(skills: state.skills),
-                  const SizedBox(height: 100),
-                  ExperienceSection(experiences: state.experiences),
-                  const SizedBox(height: 100),
-                  EducationSection(educations: state.educations),
-                  const SizedBox(height: 100),
-                  ProjectsSection(projects: state.projects),
-                  const SizedBox(height: 100),
-                  const ContactSection(),
-                  const SizedBox(height: 50),
+                  Positioned(
+                    top: -100,
+                    right: -100,
+                    child: Container(
+                      width: 400,
+                      height: 400,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: PurpleTheme.primaryPurple.withOpacity(0.08),
+                      ),
+                    ),
+                  ).animate().fadeIn(duration: 2.seconds),
+                  Positioned(
+                    bottom: 100,
+                    left: -150,
+                    child: Container(
+                      width: 500,
+                      height: 500,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: PurpleTheme.lightPurple.withOpacity(0.05),
+                      ),
+                    ),
+                  ).animate().fadeIn(duration: 3.seconds),
+                  // Centered subtle glow
+                  Center(
+                    child: Container(
+                      width: 600,
+                      height: 600,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: PurpleTheme.primaryPurple.withOpacity(0.03),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-          );
-        },
+          BlocBuilder<PortfolioCubit, PortfolioState>(
+            builder: (context, state) {
+              if (state.status == PortfolioStatus.loading) {
+                return const PurpleLoadingIndicator();
+              } else if (state.status == PortfolioStatus.failure) {
+                return Center(child: Text('Error: ${state.errorMessage}'));
+              }
+
+              // Using a ListView allows for lazy building, which triggers
+              // admission animations (FlyIn/FadeIn) correctly as you scroll.
+              return Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1000),
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    children: [
+                      const SizedBox(height: 50),
+                      // NavBar
+                      _buildNavBar(context),
+                      const SizedBox(height: 50),
+
+                      // Sections
+                      const HeroSection(),
+                      const SizedBox(height: 100),
+                      SkillsSection(skills: state.skills),
+                      const SizedBox(height: 100),
+                      ExperienceSection(experiences: state.experiences),
+                      const SizedBox(height: 100),
+                      EducationSection(educations: state.educations),
+                      const SizedBox(height: 100),
+                      ProjectsSection(projects: state.projects),
+                      const SizedBox(height: 100),
+                      const ContactSection(),
+                      const SizedBox(height: 50),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

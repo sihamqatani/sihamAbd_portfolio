@@ -115,10 +115,21 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                                     top: Radius.circular(18),
                                   ),
                                 ),
-                                child: Center(
-                                  child: Icon(Icons.image,
-                                      size: 70, color: iconColor),
-                                ),
+                                child: project.imageUrl != null
+                                    ? ClipRRect(
+                                        borderRadius:
+                                            const BorderRadius.vertical(
+                                          top: Radius.circular(18),
+                                        ),
+                                        child: Image.asset(
+                                          project.imageUrl!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Icon(Icons.image,
+                                            size: 70, color: iconColor),
+                                      ),
                               ),
                             ),
                             Padding(

@@ -57,7 +57,7 @@ class PortfolioApp extends StatelessWidget {
             return BlocBuilder<LanguageCubit, Locale>(
               builder: (context, locale) {
                 return MaterialApp(
-                  title: 'Purple Portfolio',
+                  title: 'My Portfolio',
                   debugShowCheckedModeBanner: false,
                   theme: PurpleTheme.lightTheme,
                   darkTheme: PurpleTheme.darkTheme,

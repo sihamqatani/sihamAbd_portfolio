@@ -43,5 +43,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get education => 'التعليم';
 
   @override
+  String get downloadCV => 'تحميل السيرة الذاتية';
+
+  @override
   String get copyright => '© 2026 جميع الحقوق محفوظة.';
 }

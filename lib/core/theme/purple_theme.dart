@@ -18,7 +18,7 @@ class PurpleTheme {
   // Backgrounds
   static const Color backgroundLight = Color(0xFFFBEDEF);
   static const Color backgroundBlack =
-      Color(0xFF1A1423); // Soft Deep Purple-Black for premium feel
+      Color(0xFF07050A); // Deeper Midnight Purple-Black for premium feel
 
   // Gradients
   static const LinearGradient mainGradient = LinearGradient(

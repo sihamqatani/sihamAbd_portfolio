@@ -164,6 +164,12 @@ abstract class AppLocalizations {
   /// **'Education'**
   String get education;
 
+  /// No description provided for @downloadCV.
+  ///
+  /// In en, this message translates to:
+  /// **'Download CV'**
+  String get downloadCV;
+
   /// No description provided for @copyright.
   ///
   /// In en, this message translates to:
