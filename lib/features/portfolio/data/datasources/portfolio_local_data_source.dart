@@ -18,11 +18,20 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
     return const [
       Project(
         id: 'p1',
-        title: 'Delta Oil app',
+        title: 'Delta Oil',
         description:
-            'A mobile application for collecting used cooking oil for eco-friendly disposal and recycling. Features: Schedule pickups, track requests, contribute to sustainable waste management.',
-        tags: ['Flutter', 'Sustainability', 'Eco-friendly'],
-        link: '',
+            'Delta Oil helps you in the safe disposal of edible oil waste used to participate in the production of biofuels as a role and societal contribution to preserving the environment.',
+        tags: ['Flutter', 'Sustainability', 'Biofuels'],
+        imageUrl:
+            'https://play-lh.googleusercontent.com/4Z9O_vsc1749mVRAtpbZ0cVpLk5f12Xu6K0kVTCDZ97lClLJAgxmKfs03uoRDX34-nM=w480-h960-rw',
+        screenshots: [
+          'https://play-lh.googleusercontent.com/2DI-lbESNG7ooeNzgBxhOihM_H4yhMSv5e1Z-D2a04l5SlEIfHWI5AHr81heUUZK7ng=w526-h296-rw',
+          'https://play-lh.googleusercontent.com/D7zb02AT95n6OduSJYsxOdm8RBXiKJIEyXkih99TFTsrYdKaUN4aQdQIMgHvdLYlUKo=w526-h296-rw',
+          'https://play-lh.googleusercontent.com/m42CAcb3QvRRAWlEr6Uk7L8msvPOHuL2CTl-7YkZ-1CEShmZoTKxshpv86gK1OiAX3A=w526-h296-rw',
+          'https://play-lh.googleusercontent.com/qSoJ61U6u8hN7zNSqQ_xr9YQ2QWmsf-XSw7nkePXcfp6F07YXjR-0lXNq0B1DS53bJU=w526-h296-rw',
+        ],
+        playStoreLink:
+            'https://play.google.com/store/apps/details?id=delta.oil.app',
       ),
       Project(
         id: 'p2',
