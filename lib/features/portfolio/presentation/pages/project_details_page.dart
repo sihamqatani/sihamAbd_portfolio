@@ -52,7 +52,7 @@ class ProjectDetailsPage extends StatelessWidget {
                         ? project.imageUrl!.startsWith('http')
                             ? Image.network(
                                 project.imageUrl!,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) =>
                                     const Center(
                                   child: Icon(Icons.broken_image,
@@ -61,7 +61,7 @@ class ProjectDetailsPage extends StatelessWidget {
                               )
                             : Image.asset(
                                 project.imageUrl!,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) =>
                                     const Center(
                                   child: Icon(Icons.broken_image,

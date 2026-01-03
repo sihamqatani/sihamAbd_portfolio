@@ -123,7 +123,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                                         ),
                                         child: Image.asset(
                                           project.imageUrl!,
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.contain,
                                         ),
                                       )
                                     : Center(

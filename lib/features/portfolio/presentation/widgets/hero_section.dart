@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:purple_portfolio/l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/theme/purple_theme.dart';
 import '../../../../core/widgets/glass_container.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
+
+  Future<void> _downloadCV() async {
+    final Uri url = Uri.parse('assets/cv/cv.pdf');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +69,7 @@ class HeroSection extends StatelessWidget {
         MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
-            onTap: () {
-              // Placeholder for CV download link
-            },
+            onTap: _downloadCV,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
               decoration: BoxDecoration(
