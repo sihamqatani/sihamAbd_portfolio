@@ -121,8 +121,6 @@ class HomePage extends StatelessWidget {
                 return Center(child: Text('Error: ${state.errorMessage}'));
               }
 
-              // Using a ListView allows for lazy building, which triggers
-              // admission animations (FlyIn/FadeIn) correctly as you scroll.
               return Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1000),
@@ -131,11 +129,8 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     children: [
                       const SizedBox(height: 50),
-                      // NavBar
-                      _buildNavBar(context),
+                      const HomeNavBar(),
                       const SizedBox(height: 50),
-
-                      // Sections
                       const HeroSection(),
                       const SizedBox(height: 100),
                       SkillsSection(skills: state.skills),
@@ -158,45 +153,39 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildNavBar(BuildContext context) {
-    // Check current theme mode to show appropriate icon
+class HomeNavBar extends StatelessWidget {
+  const HomeNavBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                context.read<ThemeCubit>().toggleTheme();
-              },
-              icon: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 500),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return RotationTransition(
-                    turns: child.key == const ValueKey('dark_icon')
-                        ? Tween<double>(begin: 1, end: 0.75).animate(animation)
-                        : Tween<double>(begin: 0.75, end: 1).animate(animation),
-                    child: ScaleTransition(scale: animation, child: child),
-                  );
-                },
-                child: Icon(
-                  isDark ? Icons.light_mode : Icons.dark_mode,
-                  key: ValueKey(isDark ? 'light_icon' : 'dark_icon'),
-                  color: primaryColor,
-                ),
-              ),
+        IconButton(
+          onPressed: () {
+            context.read<ThemeCubit>().toggleTheme();
+          },
+          icon: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return RotationTransition(
+                turns: child.key == const ValueKey('dark_icon')
+                    ? Tween<double>(begin: 1, end: 0.75).animate(animation)
+                    : Tween<double>(begin: 0.75, end: 1).animate(animation),
+                child: ScaleTransition(scale: animation, child: child),
+              );
+            },
+            child: Icon(
+              isDark ? Icons.light_mode : Icons.dark_mode,
+              key: ValueKey(isDark ? 'light_icon' : 'dark_icon'),
+              color: primaryColor,
             ),
-            // IconButton(
-            //   icon: Icon(Icons.language, color: primaryColor),
-            //   onPressed: () {
-            //     context.read<LanguageCubit>().toggleLanguage();
-            //   },
-            // ),
-          ],
+          ),
         ),
       ],
     );

@@ -20,6 +20,9 @@ class HeroSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,6 +31,7 @@ class HeroSection extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 color: PurpleTheme.lightPurple,
                 fontWeight: FontWeight.w300,
+                fontSize: isMobile ? 22 : 28,
               ),
         )
             .animate()
@@ -35,7 +39,9 @@ class HeroSection extends StatelessWidget {
             .slideX(begin: -0.1, curve: Curves.easeOutQuart),
         Text(
           'Siham Abdullah',
-          style: Theme.of(context).textTheme.displayLarge,
+          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                fontSize: isMobile ? 42 : 57,
+              ),
         )
             .animate()
             .fadeIn(delay: 200.ms, duration: 800.ms, curve: Curves.easeOutQuart)
@@ -44,7 +50,9 @@ class HeroSection extends StatelessWidget {
           l10n.introRole, // "Flutter Developer"
           style: Theme.of(
             context,
-          ).textTheme.headlineMedium,
+          ).textTheme.headlineMedium?.copyWith(
+                fontSize: isMobile ? 24 : 28,
+              ),
         )
             .animate()
             .fadeIn(delay: 400.ms, duration: 800.ms, curve: Curves.easeOutQuart)

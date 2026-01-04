@@ -119,6 +119,11 @@ class PurpleTheme {
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
+        displaySmall: GoogleFonts.outfit(
+          fontSize: 36,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
         bodyLarge: GoogleFonts.outfit(
           fontSize: 18,
           color: Colors.white.withOpacity(0.9),

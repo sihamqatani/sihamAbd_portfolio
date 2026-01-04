@@ -12,7 +12,8 @@ class ProjectDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -35,66 +36,95 @@ class ProjectDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Top Image
-            Stack(
-              children: [
-                Hero(
-                  tag: 'project_image_${project.id}',
-                  child: Container(
-                    height: 450,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: isDark
-                          ? Colors.black26
-                          : PurpleTheme.primaryPurple.withOpacity(0.1),
-                    ),
-                    child: project.imageUrl != null
-                        ? project.imageUrl!.startsWith('http')
-                            ? Image.network(
-                                project.imageUrl!,
-                                fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Center(
-                                  child: Icon(Icons.broken_image,
-                                      size: 100, color: Colors.white24),
-                                ),
-                              )
-                            : Image.asset(
-                                project.imageUrl!,
-                                fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Center(
-                                  child: Icon(Icons.broken_image,
-                                      size: 100, color: Colors.white24),
-                                ),
-                              )
-                        : Center(
-                            child: Icon(Icons.image,
-                                size: 100,
-                                color:
-                                    isDark ? Colors.white24 : Colors.black12),
-                          ),
-                  ),
+            // Top Header Section (Premium Aligned Icon)
+            Container(
+              height: isMobile ? 250 : 300,
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    PurpleTheme.primaryPurple.withOpacity(0.15),
+                    Colors.transparent,
+                  ],
                 ),
-                // Gradient overlay for better text visibility
-                Positioned.fill(
-                  child: IgnorePointer(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.transparent,
-                            Colors.black.withOpacity(0.5),
+              ),
+              child: SafeArea(
+                child: Row(
+                  children: [
+                    Hero(
+                      tag: 'project_image_${project.id}',
+                      child: Container(
+                        width: isMobile ? 100 : 120,
+                        height: isMobile ? 100 : 120,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.circular(isMobile ? 24 : 30),
+                          boxShadow: [
+                            BoxShadow(
+                              color: PurpleTheme.primaryPurple.withOpacity(0.3),
+                              blurRadius: 30,
+                              spreadRadius: 2,
+                            ),
                           ],
                         ),
+                        padding: EdgeInsets.all(isMobile ? 14 : 18),
+                        child: project.imageUrl != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(22),
+                                child: project.imageUrl!.startsWith('http')
+                                    ? Image.network(
+                                        project.imageUrl!,
+                                        fit: BoxFit.contain,
+                                      )
+                                    : Image.asset(
+                                        project.imageUrl!,
+                                        fit: BoxFit.contain,
+                                      ),
+                              )
+                            : Icon(Icons.apps,
+                                size: isMobile ? 50 : 60,
+                                color: PurpleTheme.primaryPurple),
+                      ),
+                    ).animate().fadeIn().scale(delay: 100.ms),
+                    SizedBox(width: isMobile ? 16 : 20),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            project.title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: isMobile ? 26 : 32,
+                                ),
+                          ).animate().fadeIn(delay: 200.ms).slideX(begin: 0.1),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Project Overview',
+                            style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white54
+                                  : PurpleTheme.primaryPurple.withOpacity(0.7),
+                              letterSpacing: 1.5,
+                              fontWeight: FontWeight.w600,
+                              fontSize: isMobile ? 10 : 12,
+                            ),
+                          ).animate().fadeIn(delay: 300.ms),
+                        ],
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(24.0),
@@ -102,33 +132,37 @@ class ProjectDetailsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Expanded(
-                        child: Text(
-                          project.title,
-                          style: Theme.of(context).textTheme.displaySmall,
-                        ),
-                      ),
                       // Floating Store Icons
-                      Row(
-                        children: [
-                          if (project.appStoreLink != null)
-                            _StoreIconButton(
-                              icon: Icons.apple,
-                              onPressed: () =>
-                                  launchUrl(Uri.parse(project.appStoreLink!)),
-                            ),
-                          if (project.playStoreLink != null)
-                            _StoreIconButton(
-                              icon: Icons.play_arrow,
-                              onPressed: () =>
-                                  launchUrl(Uri.parse(project.playStoreLink!)),
-                            ),
-                        ],
-                      ),
+                      if (project.appStoreLink != null ||
+                          project.playStoreLink != null)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: PurpleTheme.primaryPurple.withOpacity(0.05),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Row(
+                            children: [
+                              if (project.appStoreLink != null)
+                                _StoreIconButton(
+                                  icon: Icons.apple,
+                                  onPressed: () => launchUrl(
+                                      Uri.parse(project.appStoreLink!)),
+                                ),
+                              if (project.playStoreLink != null)
+                                _StoreIconButton(
+                                  icon: Icons.play_arrow,
+                                  onPressed: () => launchUrl(
+                                      Uri.parse(project.playStoreLink!)),
+                                ),
+                            ],
+                          ),
+                        ),
                     ],
-                  ).animate().fadeIn().slideX(begin: -0.2),
+                  ).animate().fadeIn().slideY(begin: 0.2),
                   const SizedBox(height: 16),
                   Wrap(
                     spacing: 8,
