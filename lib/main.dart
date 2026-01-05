@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:purple_portfolio/l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/bloc/language_cubit.dart';
 import 'core/bloc/theme_cubit.dart';
@@ -16,12 +18,36 @@ import 'features/portfolio/domain/usecases/get_skills.dart';
 import 'features/portfolio/presentation/bloc/portfolio_cubit.dart';
 import 'features/portfolio/presentation/pages/home_page.dart';
 
-void main() {
-  runApp(const PortfolioApp());
+void main() async {
+  final WidgetsBinding widgetsBinding =
+      WidgetsFlutterBinding.ensureInitialized();
+
+  // Preserve splash screen while we load dependencies
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // Initialize Shared Preferences
+  final prefs = await SharedPreferences.getInstance();
+
+  runApp(PortfolioApp(prefs: prefs));
 }
 
-class PortfolioApp extends StatelessWidget {
-  const PortfolioApp({super.key});
+class PortfolioApp extends StatefulWidget {
+  final SharedPreferences prefs;
+  const PortfolioApp({super.key, required this.prefs});
+
+  @override
+  State<PortfolioApp> createState() => _PortfolioAppState();
+}
+
+class _PortfolioAppState extends State<PortfolioApp> {
+  @override
+  void initState() {
+    super.initState();
+    // Remove splash screen after the first frame to prevent white flash
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FlutterNativeSplash.remove();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +75,7 @@ class PortfolioApp extends StatelessWidget {
             create: (context) => LanguageCubit(),
           ),
           BlocProvider<ThemeCubit>(
-            create: (context) => ThemeCubit(),
+            create: (context) => ThemeCubit(widget.prefs),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(

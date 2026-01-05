@@ -37,6 +37,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_native_splash: ^2.3.11
 
 flutter:
   uses-material-design: true
@@ -45,3 +46,9 @@ flutter:
     - assets/cv/cv.pdf
   
   generate: true # For localization code generation
+
+flutter_native_splash:
+  color: "#6A1B9A" # primaryPurple
+  android: true
+  ios: true
+  web: true
