@@ -19,11 +19,9 @@ import 'features/portfolio/presentation/bloc/portfolio_cubit.dart';
 import 'features/portfolio/presentation/pages/home_page.dart';
 
 void main() async {
-  final WidgetsBinding widgetsBinding =
-      WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-  // Preserve splash screen while we load dependencies
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // SharedPreferences can still be initialized here
 
   // Initialize Shared Preferences
   final prefs = await SharedPreferences.getInstance();
