@@ -31,6 +31,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
         ],
         playStoreLink:
             'https://play.google.com/store/search?q=delta+oil&c=apps',
+        appStoreLink: 'https://apps.apple.com/us/app/delta-oil/id6745424979',
       ),
       Project(
         id: 'p2',
@@ -56,6 +57,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
         description:
             'Medical Recruitment Application. Helps healthcare professionals find and apply for medical jobs. Built with Cubit, Dio, WebSockets, and FCM.',
         tags: ['Flutter', 'Clean Code', 'WebSockets'],
+        imageUrl: 'assets/images/gateplus_logo.png',
         link: '',
       ),
       Project(
@@ -72,6 +74,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
         description:
             'A medical data entry system to manage patient records and history in clinics.',
         tags: ['Flutter', 'Medical', 'Data Entry'],
+        imageUrl: 'assets/images/clinic_app.jpg',
         link: '',
       ),
       Project(
