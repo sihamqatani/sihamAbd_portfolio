@@ -1,1 +1,0 @@
- D:\\cv\\purple_portfolio\\lib\\l10n\\app_localizations_ar.dart D:\\cv\\purple_portfolio\\lib\\l10n\\app_localizations_en.dart D:\\cv\\purple_portfolio\\lib\\l10n\\app_localizations.dart:  D:\\cv\\purple_portfolio\\l10n.yaml D:\\cv\\purple_portfolio\\lib\\l10n\\app_ar.arb D:\\cv\\purple_portfolio\\lib\\l10n\\app_en.arb
