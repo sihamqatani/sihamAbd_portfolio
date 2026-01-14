@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:purple_portfolio/l10n/app_localizations.dart';
 
-import '../../../../core/theme/purple_theme.dart';
 import '../../domain/entities/project.dart';
 import '../pages/project_details_page.dart';
 
@@ -187,7 +186,7 @@ class _ProjectCardState extends State<ProjectCard>
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: PurpleTheme.primaryPurple.withOpacity(
+                            color: Theme.of(context).primaryColor.withOpacity(
                                 isDark ? (_isHovered ? 0.4 : 0.15) : 0.2),
                             blurRadius: _isHovered ? 30 : 20,
                             offset: Offset(0, _isHovered ? 15 : 10),
@@ -232,7 +231,8 @@ class _ProjectCardState extends State<ProjectCard>
                                   borderRadius: BorderRadius.circular(24),
                                   border: Border.all(
                                     color: _isHovered
-                                        ? PurpleTheme.primaryPurple
+                                        ? Theme.of(context)
+                                            .primaryColor
                                             .withOpacity(0.5)
                                         : Colors.transparent,
                                     width: 2,
@@ -265,12 +265,19 @@ class _ProjectCardState extends State<ProjectCard>
           if (widget.project.imageUrl != null)
             ImageFiltered(
               imageFilter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-              child: Image.asset(
-                widget.project.imageUrl!,
-                fit: BoxFit.cover,
-                color: Colors.black.withOpacity(0.4), // Darken it a bit
-                colorBlendMode: BlendMode.darken,
-              ),
+              child: widget.project.imageUrl!.startsWith('http')
+                  ? Image.network(
+                      widget.project.imageUrl!,
+                      fit: BoxFit.cover,
+                      color: Colors.black.withOpacity(0.4),
+                      colorBlendMode: BlendMode.darken,
+                    )
+                  : Image.asset(
+                      widget.project.imageUrl!,
+                      fit: BoxFit.cover,
+                      color: Colors.black.withOpacity(0.4),
+                      colorBlendMode: BlendMode.darken,
+                    ),
             ),
 
           // 2. The Main Image - Contained
@@ -291,10 +298,15 @@ class _ProjectCardState extends State<ProjectCard>
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    widget.project.imageUrl!,
-                    fit: BoxFit.contain,
-                  ),
+                  child: widget.project.imageUrl!.startsWith('http')
+                      ? Image.network(
+                          widget.project.imageUrl!,
+                          fit: BoxFit.contain,
+                        )
+                      : Image.asset(
+                          widget.project.imageUrl!,
+                          fit: BoxFit.contain,
+                        ),
                 ),
               ),
             )
@@ -357,21 +369,21 @@ class _ProjectCardState extends State<ProjectCard>
           const SizedBox(height: 12),
 
           // "View Project" CTA
-          const Row(
+          Row(
             children: [
               Text(
                 "View Details",
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
-                  color: PurpleTheme.primaryPurple,
+                  color: Theme.of(context).primaryColor,
                   fontSize: 14,
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Icon(
                 Icons.arrow_forward_rounded,
                 size: 16,
-                color: PurpleTheme.primaryPurple,
+                color: Theme.of(context).primaryColor,
               ),
             ],
           ),
@@ -385,19 +397,19 @@ class _ProjectCardState extends State<ProjectCard>
       margin: const EdgeInsets.only(right: 6),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: PurpleTheme.primaryPurple.withOpacity(0.1),
+        color: Theme.of(context).primaryColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: PurpleTheme.primaryPurple.withOpacity(0.2),
+          color: Theme.of(context).primaryColor.withOpacity(0.2),
           width: 0.5,
         ),
       ),
       child: Text(
         tag,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.w600,
-          color: PurpleTheme.primaryPurple,
+          color: Theme.of(context).primaryColor,
         ),
       ),
     );
@@ -430,13 +442,13 @@ class ProjectPagination extends StatelessWidget {
             width: 8 + (activeFactor * 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: PurpleTheme.primaryPurple.withOpacity(
-                0.2 + (activeFactor * 0.8),
-              ),
+              color: Theme.of(context).primaryColor.withOpacity(
+                    0.2 + (activeFactor * 0.8),
+                  ),
               boxShadow: [
                 if (activeFactor > 0.5)
                   BoxShadow(
-                    color: PurpleTheme.primaryPurple.withOpacity(0.3),
+                    color: Theme.of(context).primaryColor.withOpacity(0.3),
                     blurRadius: 10,
                     spreadRadius: 1,
                   ),

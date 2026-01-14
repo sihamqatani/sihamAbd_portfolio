@@ -8,6 +8,8 @@ class PurpleTheme {
   static const Color lightPurple =
       Color(0xFFF48FB1); // Light Pink Accent (Buttons/Details)
   static const Color secondaryPurple = Color(0xFF8E44AD); // Secondary Text
+  static const Color vibrantPurple =
+      Color(0xFFD69DFF); // Vibrant Lavender for Dark Mode
 
   // Accents
   static const Color pinkMedium = Color(0xFFEC407A);
@@ -94,14 +96,15 @@ class PurpleTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      primaryColor: primaryPurple,
+      primaryColor: vibrantPurple,
       scaffoldBackgroundColor: backgroundBlack,
       fontFamily: GoogleFonts.outfit().fontFamily,
       colorScheme: const ColorScheme.dark(
-        primary: primaryPurple,
+        primary: vibrantPurple,
         secondary: lightPurple,
-        surface: primaryPurple, // Using brand color as base for some surfaces
-        onPrimary: Colors.white,
+        surface: Color(0xFF130B1D), // Deep Purple-Black surface
+        onPrimary: Colors.black,
+        onSurface: Colors.white,
       ),
       textTheme: TextTheme(
         displayLarge: GoogleFonts.outfit(
@@ -117,7 +120,7 @@ class PurpleTheme {
         headlineMedium: GoogleFonts.outfit(
           fontSize: 28,
           fontWeight: FontWeight.w600,
-          color: Colors.white,
+          color: vibrantPurple,
         ),
         displaySmall: GoogleFonts.outfit(
           fontSize: 36,
@@ -132,7 +135,7 @@ class PurpleTheme {
         labelLarge: GoogleFonts.outfit(
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: Colors.white,
+          color: vibrantPurple,
         ),
       ),
     );

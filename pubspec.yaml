@@ -48,7 +48,8 @@ flutter:
   generate: true # For localization code generation
 
 flutter_native_splash:
-  color: "#6A1B9A" # primaryPurple
+  color: "#0A0710" # Dark background matching app theme
+  color_dark: "#0A0710" # Same for dark mode
   android: true
   ios: true
   web: true
