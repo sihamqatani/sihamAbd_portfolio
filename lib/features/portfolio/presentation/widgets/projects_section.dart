@@ -25,9 +25,11 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     super.initState();
     _pageController = PageController(viewportFraction: 0.85)
       ..addListener(() {
-        setState(() {
-          _currentPage = _pageController.page!;
-        });
+        if (mounted) {
+          setState(() {
+            _currentPage = _pageController.page!;
+          });
+        }
       });
   }
 
@@ -131,13 +133,17 @@ class _ProjectCardState extends State<ProjectCard>
   }
 
   void _onEnter(PointerEvent details) {
-    setState(() => _isHovered = true);
-    _hoverController.forward();
+    if (mounted) {
+      setState(() => _isHovered = true);
+      _hoverController.forward();
+    }
   }
 
   void _onExit(PointerEvent details) {
-    setState(() => _isHovered = false);
-    _hoverController.reverse();
+    if (mounted) {
+      setState(() => _isHovered = false);
+      _hoverController.reverse();
+    }
   }
 
   @override
@@ -172,81 +178,83 @@ class _ProjectCardState extends State<ProjectCard>
                 ),
               );
             },
-            child: AnimatedBuilder(
-              animation: _hoverController,
-              builder: (context, child) {
-                return Transform.translate(
-                  offset: Offset(0, _liftAnimation.value),
-                  child: Transform.scale(
-                    scale: _scaleAnimation.value,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Theme.of(context).primaryColor.withOpacity(
-                                isDark ? (_isHovered ? 0.4 : 0.15) : 0.2),
-                            blurRadius: _isHovered ? 30 : 20,
-                            offset: Offset(0, _isHovered ? 15 : 10),
-                            spreadRadius: _isHovered ? 2 : 0,
-                          ),
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(24),
-                        child: Stack(
-                          children: [
-                            // 1. Background
-                            Container(
-                              decoration: BoxDecoration(
-                                color: isDark
-                                    ? const Color(0xFF1E1E24)
-                                    : Colors.white,
-                              ),
-                            ),
-
-                            // 2. Content Layout
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Image Section (Top 55%)
-                                Expanded(
-                                  flex: 11,
-                                  child: _buildImageSection(isDark),
-                                ),
-                                // Info Section (Bottom 45%)
-                                Expanded(
-                                  flex: 9,
-                                  child: _buildInfoSection(context, isDark),
-                                ),
-                              ],
-                            ),
-
-                            // 3. Hover Border Overlay
-                            Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(
-                                    color: _isHovered
-                                        ? Theme.of(context)
-                                            .primaryColor
-                                            .withOpacity(0.5)
-                                        : Colors.transparent,
-                                    width: 2,
-                                  ),
-                                ),
-                              ),
+            child: RepaintBoundary(
+              child: AnimatedBuilder(
+                animation: _hoverController,
+                builder: (context, child) {
+                  return Transform.translate(
+                    offset: Offset(0, _liftAnimation.value),
+                    child: Transform.scale(
+                      scale: _scaleAnimation.value,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(context).primaryColor.withOpacity(
+                                  isDark ? (_isHovered ? 0.4 : 0.15) : 0.2),
+                              blurRadius: _isHovered ? 30 : 20,
+                              offset: Offset(0, _isHovered ? 15 : 10),
+                              spreadRadius: _isHovered ? 2 : 0,
                             ),
                           ],
                         ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(24),
+                          child: Stack(
+                            children: [
+                              // 1. Background
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: isDark
+                                      ? const Color(0xFF1E1E24)
+                                      : Colors.white,
+                                ),
+                              ),
+
+                              // 2. Content Layout
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Image Section (Top 55%)
+                                  Expanded(
+                                    flex: 11,
+                                    child: _buildImageSection(isDark),
+                                  ),
+                                  // Info Section (Bottom 45%)
+                                  Expanded(
+                                    flex: 9,
+                                    child: _buildInfoSection(context, isDark),
+                                  ),
+                                ],
+                              ),
+
+                              // 3. Hover Border Overlay
+                              Positioned.fill(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    border: Border.all(
+                                      color: _isHovered
+                                          ? Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.5)
+                                          : Colors.transparent,
+                                      width: 2,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -264,7 +272,7 @@ class _ProjectCardState extends State<ProjectCard>
           // 1. Atmosphere - Blurred Background
           if (widget.project.imageUrl != null)
             ImageFiltered(
-              imageFilter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+              imageFilter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
               child: widget.project.imageUrl!.startsWith('http')
                   ? Image.network(
                       widget.project.imageUrl!,

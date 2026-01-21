@@ -60,38 +60,44 @@ class HomePage extends StatelessWidget {
                   Positioned(
                     top: -150,
                     right: isMobile ? -150 : -100,
-                    child: _buildGlowOrb(
-                        context,
-                        isMobile ? 300 : 500,
-                        PurpleTheme.primaryPurple.withOpacity(0.12),
-                        10.seconds,
-                        Offset(isMobile ? -40 : -80, isMobile ? 40 : 80)),
+                    child: RepaintBoundary(
+                      child: _buildGlowOrb(
+                          context,
+                          isMobile ? 300 : 500,
+                          PurpleTheme.primaryPurple.withOpacity(0.12),
+                          10.seconds,
+                          Offset(isMobile ? -40 : -80, isMobile ? 40 : 80)),
+                    ),
                   ),
                   Positioned(
                     bottom: -150,
                     left: isMobile ? -150 : -100,
-                    child: _buildGlowOrb(
-                        context,
-                        isMobile ? 350 : 600,
-                        PurpleTheme.lightPurple.withOpacity(0.08),
-                        15.seconds,
-                        Offset(isMobile ? 50 : 100, isMobile ? -50 : -100)),
+                    child: RepaintBoundary(
+                      child: _buildGlowOrb(
+                          context,
+                          isMobile ? 350 : 600,
+                          PurpleTheme.lightPurple.withOpacity(0.08),
+                          15.seconds,
+                          Offset(isMobile ? 50 : 100, isMobile ? -50 : -100)),
+                    ),
                   ),
                   if (!isMobile)
                     Positioned(
                       top: 200,
                       left: 200,
-                      child: Container(
-                        width: 400,
-                        height: 400,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: PurpleTheme.primaryPurple.withOpacity(0.05),
-                        ),
-                      ).animate(onPlay: (c) => c.repeat(reverse: true)).scale(
-                          begin: const Offset(1, 1),
-                          end: const Offset(1.5, 1.5),
-                          duration: 12.seconds),
+                      child: RepaintBoundary(
+                        child: Container(
+                          width: 400,
+                          height: 400,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: PurpleTheme.primaryPurple.withOpacity(0.05),
+                          ),
+                        ).animate(onPlay: (c) => c.repeat(reverse: true)).scale(
+                            begin: const Offset(1, 1),
+                            end: const Offset(1.5, 1.5),
+                            duration: 12.seconds),
+                      ),
                     ),
                 ],
               ),
@@ -106,29 +112,81 @@ class HomePage extends StatelessWidget {
                 return Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 1000),
-                    child: ListView(
+                    child: CustomScrollView(
                       physics: const BouncingScrollPhysics(),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: isMobile ? 16.0 : 20.0),
-                      children: [
-                        SizedBox(height: isMobile ? 30 : 50),
-                        const Align(
-                          alignment: AlignmentDirectional.topEnd,
-                          child: HomeNavBar(),
+                      slivers: [
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 16.0 : 20.0),
+                          sliver: SliverToBoxAdapter(
+                            child: Column(
+                              children: [
+                                SizedBox(height: isMobile ? 30 : 50),
+                                const Align(
+                                  alignment: AlignmentDirectional.topEnd,
+                                  child: HomeNavBar(),
+                                ),
+                                SizedBox(height: isMobile ? 30 : 50),
+                              ],
+                            ),
+                          ),
                         ),
-                        SizedBox(height: isMobile ? 30 : 50),
-                        const HeroSection(),
-                        SizedBox(height: isMobile ? 60 : 100),
-                        SkillsSection(skills: state.skills),
-                        SizedBox(height: isMobile ? 60 : 100),
-                        ExperienceSection(experiences: state.experiences),
-                        SizedBox(height: isMobile ? 60 : 100),
-                        EducationSection(educations: state.educations),
-                        SizedBox(height: isMobile ? 60 : 100),
-                        ProjectsSection(projects: state.projects),
-                        SizedBox(height: isMobile ? 60 : 100),
-                        const ContactSection(),
-                        SizedBox(height: isMobile ? 30 : 50),
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 16.0 : 20.0),
+                          sliver: const SliverToBoxAdapter(
+                            child: HeroSection(),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: isMobile ? 60 : 100)),
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 16.0 : 20.0),
+                          sliver: SliverToBoxAdapter(
+                            child: SkillsSection(skills: state.skills),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: isMobile ? 60 : 100)),
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 16.0 : 20.0),
+                          sliver: SliverToBoxAdapter(
+                            child: ExperienceSection(
+                                experiences: state.experiences),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: isMobile ? 60 : 100)),
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 16.0 : 20.0),
+                          sliver: SliverToBoxAdapter(
+                            child:
+                                EducationSection(educations: state.educations),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: isMobile ? 60 : 100)),
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 16.0 : 20.0),
+                          sliver: SliverToBoxAdapter(
+                            child: ProjectsSection(projects: state.projects),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: isMobile ? 60 : 100)),
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 16.0 : 20.0),
+                          sliver: const SliverToBoxAdapter(
+                            child: ContactSection(),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: isMobile ? 30 : 50)),
                       ],
                     ),
                   ),

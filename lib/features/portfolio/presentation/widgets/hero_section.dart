@@ -70,7 +70,9 @@ class HeroSection extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(24),
           child: Text(
-            'Specialized in building high-performance, scalable mobile applications with Flutter. Committed to Clean Architecture, SOLID principles, and crafting pixel-perfect UI/UX experiences.',
+            '''I am a Flutter Developer dedicated to building high-performance, scalable mobile applications that don’t compromise on aesthetics. My mission is to bridge the gap between complex ideas and intuitive digital products.
+I specialize in crafting pixel-perfect UI/UX experiences backed by a solid foundation in Clean Architecture and SOLID principles. This ensures that every app I build is not only beautiful and fluid but also maintainable and ready to scale.
+Driven by a passion for clean code and innovative problem-solving, I strive to deliver excellence in every line of code. Let’s turn your vision into a high-quality reality!''',
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge
