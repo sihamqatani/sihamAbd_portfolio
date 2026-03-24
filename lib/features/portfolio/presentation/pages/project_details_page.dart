@@ -89,10 +89,13 @@ class ProjectDetailsPage extends StatelessWidget {
                       const SizedBox(width: 10),
                       Row(
                         children: [
-                          if (project.link != null && project.link!.isNotEmpty)
+                          if (project.videoLink != null &&
+                              project.videoLink!.isNotEmpty)
                             _StoreButton(
-                                icon: Icons.play_circle_fill,
-                                url: project.link!),
+                                icon: Icons.ondemand_video_rounded,
+                                url: project.videoLink!),
+                          if (project.link != null && project.link!.isNotEmpty)
+                            _StoreButton(icon: Icons.link, url: project.link!),
                           if (project.appStoreLink != null)
                             _StoreButton(
                                 icon: Icons.apple, url: project.appStoreLink!),

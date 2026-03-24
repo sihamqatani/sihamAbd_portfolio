@@ -8,6 +8,7 @@ class Project extends Equatable {
   final List<String> screenshots;
   final List<String> tags;
   final String? link;
+  final String? videoLink;
   final String? appStoreLink;
   final String? playStoreLink;
 
@@ -19,6 +20,7 @@ class Project extends Equatable {
     this.screenshots = const [],
     this.tags = const [],
     this.link,
+    this.videoLink,
     this.appStoreLink,
     this.playStoreLink,
   });
@@ -32,6 +34,7 @@ class Project extends Equatable {
         screenshots,
         tags,
         link,
+        videoLink,
         appStoreLink,
         playStoreLink,
       ];
