@@ -30,23 +30,33 @@ class EducationSection extends StatelessWidget {
         const SizedBox(height: 30),
         LayoutBuilder(
           builder: (context, constraints) {
-            final int crossAxisCount = constraints.maxWidth < 600 ? 1 : 2;
-            final double cardHeight =
-                isMobile ? 180 : 200; // Adjusted height to prevent overflow
+            final isMobileLayout = constraints.maxWidth < 600;
+            if (isMobileLayout) {
+              return ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: educations.length,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 16),
+                itemBuilder: (context, index) => _EducationCard(
+                  education: educations[index],
+                  index: index,
+                  isMobile: true,
+                ),
+              );
+            }
             return GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
-                mainAxisExtent: cardHeight,
+                mainAxisExtent: 220,
               ),
               itemCount: educations.length,
               itemBuilder: (context, index) => _EducationCard(
-                  education: educations[index],
-                  index: index,
-                  isMobile: isMobile),
+                  education: educations[index], index: index, isMobile: false),
             );
           },
         ),
@@ -98,26 +108,38 @@ class _EducationCardState extends State<_EducationCard> {
                       size: widget.isMobile ? 32 : 36),
                 ),
                 SizedBox(height: widget.isMobile ? 8 : 12),
-                Flexible(
-                    child: Text(widget.education.degree,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: widget.isMobile ? 14 : 16))),
-                const SizedBox(height: 4),
-                Flexible(
-                    child: Text(widget.education.school,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: PurpleTheme.primaryPurple,
-                            fontSize: widget.isMobile ? 12 : 14))),
+                Text(widget.education.degree,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: widget.isMobile ? 14 : 16)),
+                const SizedBox(height: 6),
+                Text(widget.education.school,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: PurpleTheme.primaryPurple,
+                        fontSize: widget.isMobile ? 12 : 14)),
+                const SizedBox(height: 6),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    widget.education.period,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: widget.isMobile ? 10 : 12,
+                        ),
+                  ),
+                ),
               ],
             ),
           ),
