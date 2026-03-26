@@ -43,7 +43,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/cv/cv.pdf
+    - assets/cv/Siham_Abdullah_Al-Qatani_Flutter_developer_CV.pdf
   
   generate: true # For localization code generation
 
