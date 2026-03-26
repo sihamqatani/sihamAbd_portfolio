@@ -74364,7 +74364,7 @@ $S:24}
 A.wf.prototype={
 td(){var s=0,r=A.I(t.H),q
 var $async$td=A.J(function(a,b){if(a===1)return A.F(b,r)
-for(;;)switch(s){case 0:q=A.eG("assets/cv/Siham_Abdullah_Al-Qatani_Flutter_developer_CV.pdf",0,null)
+for(;;)switch(s){case 0:q=A.eG("assets/assets/cv/Siham_Abdullah_Al-Qatani_Flutter_developer_CV.pdf",0,null)
 s=2
 return A.L(A.Yx(q),$async$td)
 case 2:if(!b)throw A.h(A.cj("Could not launch "+q.i(0)))
