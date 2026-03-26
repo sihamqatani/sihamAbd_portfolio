@@ -24876,7 +24876,7 @@ $S:1}
 A.amU.prototype={
 $1(a){var s=A.cJ().b
 s=s==null?null:s.canvasKitBaseUrl
-return(s==null?"https://www.gstatic.com/flutter-canvaskit/052f31d115eceda8cbff1b3481fcde4330c4ae12/":s)+a},
+return(s==null?"https://www.gstatic.com/flutter-canvaskit/425cfb54d01a9472b3e81d9e76fd63a4a44cfbcb/":s)+a},
 $S:42}
 A.Jv.prototype={
 gu(a){var s=this.a
@@ -74364,7 +74364,7 @@ $S:24}
 A.wf.prototype={
 td(){var s=0,r=A.I(t.H),q
 var $async$td=A.J(function(a,b){if(a===1)return A.F(b,r)
-for(;;)switch(s){case 0:q=A.eG("assets/cv/cv.pdf",0,null)
+for(;;)switch(s){case 0:q=A.eG("assets/cv/Siham_Abdullah_Al-Qatani_Flutter_developer_CV.pdf",0,null)
 s=2
 return A.L(A.Yx(q),$async$td)
 case 2:if(!b)throw A.h(A.cj("Could not launch "+q.i(0)))
