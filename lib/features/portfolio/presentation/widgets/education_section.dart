@@ -48,15 +48,19 @@ class EducationSection extends StatelessWidget {
             return GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: constraints.maxWidth > 950
+                    ? 3
+                    : (constraints.maxWidth > 600 ? 2 : 1),
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
-                mainAxisExtent: 220,
+                mainAxisExtent: 280, // زيادة المساحة لضمان شكل احترافي وواسع
               ),
               itemCount: educations.length,
               itemBuilder: (context, index) => _EducationCard(
-                  education: educations[index], index: index, isMobile: false),
+                  education: educations[index],
+                  index: index,
+                  isMobile: constraints.maxWidth < 600),
             );
           },
         ),
@@ -89,54 +93,60 @@ class _EducationCardState extends State<_EducationCard> {
         transform: Matrix4.identity()
           ..translate(0.0, _isHovered ? -8.0 : 0.0, 0.0),
         child: GlassContainer(
+          padding: EdgeInsets.zero, // إزالة الـ padding الافتراضي لمنع التداخل
           child: Padding(
-            padding: EdgeInsets.all(widget.isMobile ? 16.0 : 20.0),
+            padding: EdgeInsets.all(widget.isMobile ? 12.0 : 16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: [
                 AnimatedContainer(
                   duration: 300.ms,
-                  padding: EdgeInsets.all(_isHovered ? 10 : 6),
+                  padding: EdgeInsets.all(_isHovered ? 12 : 8),
                   decoration: BoxDecoration(
                       color: Theme.of(context)
                           .primaryColor
-                          .withOpacity(_isHovered ? 0.15 : 0.1),
+                          .withOpacity(_isHovered ? 0.2 : 0.1),
                       shape: BoxShape.circle),
                   child: Icon(Icons.school,
                       color: Theme.of(context).primaryColor,
                       size: widget.isMobile ? 32 : 36),
                 ),
-                SizedBox(height: widget.isMobile ? 8 : 12),
-                Text(widget.education.degree,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                const SizedBox(height: 16),
+                Text(
+                  widget.education.degree,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        fontSize: widget.isMobile ? 14 : 16)),
-                const SizedBox(height: 6),
-                Text(widget.education.school,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: widget.isMobile ? 14 : 16,
+                      ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  widget.education.school,
+                  textAlign: TextAlign.center,
+                  maxLines: 2, // زيادة عدد الأسطر للمدرسة أيضاً عند الحاجة
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: PurpleTheme.primaryPurple,
-                        fontSize: widget.isMobile ? 12 : 14)),
-                const SizedBox(height: 6),
+                        fontSize: widget.isMobile ? 12 : 14,
+                      ),
+                ),
+                const SizedBox(height: 12),
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     widget.education.period,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
-                          fontSize: widget.isMobile ? 10 : 12,
+                          fontSize: widget.isMobile ? 10 : 11,
                         ),
                   ),
                 ),
