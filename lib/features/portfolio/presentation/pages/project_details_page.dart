@@ -26,7 +26,22 @@ class ProjectDetailsPage extends StatelessWidget {
                 children: [
                   // Atmospheric background
                   if (project.imageUrl != null)
-                    Image.asset(project.imageUrl!, fit: BoxFit.cover),
+                    project.imageUrl!.startsWith('http')
+                        ? Image.network(project.imageUrl!, fit: BoxFit.cover)
+                        : Image.asset(project.imageUrl!, fit: BoxFit.cover)
+                  else
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Theme.of(context).primaryColor.withOpacity(0.8),
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                          ],
+                        ),
+                      ),
+                    ),
                   Container(
                       decoration: BoxDecoration(
                           color: (isDark ? Colors.black : Colors.white)
@@ -52,9 +67,12 @@ class ProjectDetailsPage extends StatelessWidget {
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
                               child: project.imageUrl != null
-                                  ? Image.asset(project.imageUrl!,
-                                      fit: BoxFit.contain)
-                                  : const Icon(Icons.image_not_supported)),
+                                  ? (project.imageUrl!.startsWith('http')
+                                      ? Image.network(project.imageUrl!,
+                                          fit: BoxFit.contain)
+                                      : Image.asset(project.imageUrl!,
+                                          fit: BoxFit.contain))
+                                  : _buildDynamicPlaceholder(context)),
                         ),
                       ),
                     ),
@@ -118,6 +136,83 @@ class ProjectDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDynamicPlaceholder(BuildContext context) {
+    // Generate initials from project title
+    String initials = "";
+    if (project.title.isNotEmpty) {
+      final words = project.title.trim().split(RegExp(r'\s+'));
+      if (words.length > 1) {
+        initials = '${words[0][0]}${words[1][0]}'.toUpperCase();
+      } else {
+        initials = words[0]
+            .substring(0, words[0].length >= 2 ? 2 : 1)
+            .toUpperCase();
+      }
+    }
+
+    // Determine icon based on tags
+    IconData projectIcon = Icons.code_rounded;
+    final tagsStr = project.tags.join(' ').toLowerCase();
+    if (tagsStr.contains('flutter') ||
+        tagsStr.contains('app') ||
+        tagsStr.contains('mobile')) {
+      projectIcon = Icons.phone_iphone_rounded;
+    } else if (tagsStr.contains('web') ||
+        tagsStr.contains('react') ||
+        tagsStr.contains('angular')) {
+      projectIcon = Icons.language_rounded;
+    } else if (tagsStr.contains('api') ||
+        tagsStr.contains('backend') ||
+        tagsStr.contains('node')) {
+      projectIcon = Icons.api_rounded;
+    } else if (tagsStr.contains('ui') ||
+        tagsStr.contains('design') ||
+        tagsStr.contains('figma')) {
+      projectIcon = Icons.design_services_rounded;
+    }
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Background subtle fill
+          Container(
+            color: Theme.of(context).primaryColor.withOpacity(0.1),
+          ),
+          
+          // Content
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                projectIcon,
+                size: 64,
+                color: Theme.of(context).primaryColor,
+              ).animate(onPlay: (c) => c.repeat(reverse: true))
+               .shake(hz: 4, curve: Curves.easeInOut, rotation: 0.1, duration: 2.seconds)
+               .scale(begin: const Offset(1, 1), end: const Offset(1.1, 1.1), duration: 2.seconds)
+               .shimmer(delay: 1.seconds, duration: 1.seconds, color: Colors.white),
+              const SizedBox(height: 16),
+              Text(
+                initials,
+                style: TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.w900,
+                  color: Theme.of(context).primaryColor.withOpacity(0.5),
+                  letterSpacing: 4,
+                ),
+              ),
+            ],
           ),
         ],
       ),

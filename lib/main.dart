@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:purple_portfolio/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,32 +77,35 @@ class _PortfolioAppState extends State<PortfolioApp> {
             create: (context) => ThemeCubit(widget.prefs),
           ),
         ],
-        child: BlocBuilder<ThemeCubit, ThemeMode>(
-          builder: (context, themeMode) {
+        child: Builder(
+          builder: (context) {
+            final initialThemeMode = context.read<ThemeCubit>().state;
             return BlocBuilder<LanguageCubit, Locale>(
               builder: (context, locale) {
-                return MaterialApp(
-                  title: 'My Portfolio',
-                  debugShowCheckedModeBanner: false,
-                  theme: PurpleTheme.lightTheme,
-                  darkTheme: PurpleTheme.darkTheme,
-                  themeMode: themeMode,
-                  themeAnimationDuration: const Duration(milliseconds: 800),
-                  themeAnimationCurve: Curves.easeInOut,
-                  locale: locale,
-                  // Localization
+                return ThemeProvider(
+                  initTheme: initialThemeMode == ThemeMode.dark
+                      ? PurpleTheme.darkTheme
+                      : PurpleTheme.lightTheme,
+                  builder: (context, myTheme) {
+                    return MaterialApp(
+                      title: 'My Portfolio',
+                      debugShowCheckedModeBanner: false,
+                      theme: myTheme,
+                      locale: locale,
+                      // Localization
                   localizationsDelegates: const [
                     AppLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: const [
-                    Locale('en'), // English
-                    Locale('ar'), // Arabic
-                  ],
-                  home: const HomePage(),
-                );
+                    ],
+                    supportedLocales: const [
+                      Locale('en'), // English
+                      Locale('ar'), // Arabic
+                    ],
+                    home: const HomePage(),
+                  );
+                });
               },
             );
           },

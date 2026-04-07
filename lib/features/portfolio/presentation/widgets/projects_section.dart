@@ -319,13 +319,101 @@ class _ProjectCardState extends State<ProjectCard>
               ),
             )
           else
-            Center(
-              child: Icon(
-                Icons.image_not_supported_rounded,
-                size: 50,
-                color: isDark ? Colors.white24 : Colors.black26,
+            _buildDynamicPlaceholder(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDynamicPlaceholder() {
+    // Generate initials from project title
+    String initials = "";
+    if (widget.project.title.isNotEmpty) {
+      final words = widget.project.title.trim().split(RegExp(r'\s+'));
+      if (words.length > 1) {
+        initials = '${words[0][0]}${words[1][0]}'.toUpperCase();
+      } else {
+        initials = words[0].substring(0, words[0].length >= 2 ? 2 : 1).toUpperCase();
+      }
+    }
+
+    // Determine icon based on tags
+    IconData projectIcon = Icons.code_rounded;
+    final tagsStr = widget.project.tags.join(' ').toLowerCase();
+    if (tagsStr.contains('flutter') || tagsStr.contains('app') || tagsStr.contains('mobile')) {
+      projectIcon = Icons.phone_iphone_rounded;
+    } else if (tagsStr.contains('web') || tagsStr.contains('react') || tagsStr.contains('angular')) {
+      projectIcon = Icons.language_rounded;
+    } else if (tagsStr.contains('api') || tagsStr.contains('backend') || tagsStr.contains('node')) {
+      projectIcon = Icons.api_rounded;
+    } else if (tagsStr.contains('ui') || tagsStr.contains('design') || tagsStr.contains('figma')) {
+      projectIcon = Icons.design_services_rounded;
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).primaryColor.withOpacity(0.8),
+            Theme.of(context).primaryColor.withOpacity(0.4),
+          ],
+        ),
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Floating orbs background effect
+          Positioned(
+            top: -20,
+            left: -20,
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.1),
               ),
-            ),
+            ).animate(onPlay: (c) => c.repeat(reverse: true)).moveX(begin: 0, end: 20, duration: 4.seconds),
+          ),
+          Positioned(
+            bottom: -30,
+            right: -10,
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.1),
+              ),
+            ).animate(onPlay: (c) => c.repeat(reverse: true)).moveY(begin: 0, end: -15, duration: 3.seconds),
+          ),
+          
+          // Content
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+               Icon(
+                projectIcon,
+                size: 48,
+                color: Colors.white.withOpacity(0.9),
+              ).animate(onPlay: (c) => c.repeat(reverse: true))
+               .shake(hz: 4, curve: Curves.easeInOut, rotation: 0.1, duration: 2.seconds)
+               .scale(begin: const Offset(1, 1), end: const Offset(1.1, 1.1), duration: 2.seconds)
+               .shimmer(delay: 1.seconds, duration: 1.seconds, color: Colors.white),
+               const SizedBox(height: 12),
+               Text(
+                 initials,
+                 style: const TextStyle(
+                   fontSize: 42,
+                   fontWeight: FontWeight.w900,
+                   color: Colors.white54,
+                   letterSpacing: 4,
+                 ),
+               ),
+            ],
+          ),
         ],
       ),
     );

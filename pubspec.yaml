@@ -24,6 +24,7 @@ dependencies:
   google_fonts: ^6.1.0
   flutter_animate: ^4.5.0
   font_awesome_flutter: ^10.6.0
+  animated_theme_switcher: 
   glass_kit: ^3.0.0 # Optional, but we can implement custom too. Let's use custom for control, but keep generic deps.
   
   # Localization
