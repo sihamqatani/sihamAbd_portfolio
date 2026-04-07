@@ -11,7 +11,7 @@ class HeroSection extends StatelessWidget {
 
   Future<void> _downloadCV() async {
     final Uri url = Uri.parse(
-        'assets/assets/cv/Siham_Abdullah_Al-Qatani_Flutter_developer_CV.pdf');
+        'assets/cv/Siham_Abdullah_Al-Qatani_Flutter_developer_CV.pdf');
     if (!await launchUrl(url)) throw Exception('Could not launch $url');
   }
 
