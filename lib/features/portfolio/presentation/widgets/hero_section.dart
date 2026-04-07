@@ -10,8 +10,10 @@ class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
 
   Future<void> _downloadCV() async {
-    final Uri url = Uri.parse(
-        'assets/cv/Siham_Abdullah_Al-Qatani_Flutter_developer_CV.pdf');
+    // Construct the absolute URL dynamically based on the current web host.
+    // Note: In Flutter Web, assets are located inside a root 'assets/' folder.
+    final Uri url = Uri.base.resolve(
+        'assets/assets/cv/Siham_Abdullah_Al-Qatani_Flutter_developer_CV.pdf');
     if (!await launchUrl(url)) throw Exception('Could not launch $url');
   }
 
