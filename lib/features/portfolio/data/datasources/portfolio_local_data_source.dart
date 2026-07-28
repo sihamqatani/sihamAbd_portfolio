@@ -67,8 +67,8 @@ class PortfolioLocalDataSourceImpl implements PortfolioDataSource {
             'A comprehensive application for Al Dhahirah Governorate in Oman. It features News, Events, Governorate Projects, Services, Wilayats (states), Suggestions/Proposals, Participation, and Legislations, all with direct service request capabilities.',
         tags: ['Flutter', 'Oman Services', 'Dashboard'],
         imageUrl: 'assets/images/al_dhahirah_logo.png',
-        videoLink:
-            'https://drive.google.com/file/d/1l3xq7vjeYRHJldf4hXvkQAthdlzoIMH6/view?usp=drive_link',
+        appStoreLink:
+            'https://apps.apple.com/us/app/%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9-%D8%A7%D9%84%D8%B8%D8%A7%D9%87%D8%B1%D8%A9/id6771886773',
       ),
       Project(
         id: 'p5',
